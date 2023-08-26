@@ -14,15 +14,10 @@ const pool = new Pool({
 async function getExchangeRates(baseCurrency, finalCurrency, amount) {
     console.log(baseCurrency);
     console.log(finalCurrency);
+    console.log(amount);
 
     const apiKey = 'dHUbEA8j1Shxe6KgOYIUQFEnzVeV27gd';
-    const apiUrl = `https://api.apilayer.com/fixer/convert?to={to}&from={from}&amount={amount}`;
-
-    const params = {
-        to: baseCurrency,   // Cambia según tu necesidad
-        from: finalCurrency, // Cambia según tu necesidad
-        amount: amount  // Cambia según tu necesidad
-    };
+    const apiUrl = `https://api.apilayer.com/fixer/convert?to=${finalCurrency}&from=${baseCurrency}&amount=${amount}`;
 
     const config = {
         headers: {
@@ -30,17 +25,9 @@ async function getExchangeRates(baseCurrency, finalCurrency, amount) {
         }
     };
 
-    axios.get(apiUrl, { params, ...config })
-        .then(response => {
-            console.log(response.data);
-        })
-        .catch(error => {
-            console.log('error', error);
-        });
-
     try {
-        const response = await axios.get(apiUrl);
-        return response.data.rates;
+        const response = await axios.get(apiUrl, config);
+        return response.data.result;
     } catch (error) {
         console.error('Error al obtener las tasas de cambio:', error);
         throw error;
@@ -76,30 +63,36 @@ const crearTransfer = async (req, res) => {
 
     try {
         // Obtener la moneda de la cuenta de origen desde la base de datos
-        const queryAccountFrom = await pool.query('SELECT divisas.codigo FROM cuentas LEFT JOIN divisas ON cuentas.divisa_id = divisas.divisa_id WHERE cuenta_id = $1', [accountFrom]);
-        const accountFromCurrency = queryAccountFrom.rows[0].divisa_id;
+        const queryAccountFrom = await pool.query('SELECT divisas.codigo as codigo, cuentas.usuario_id as usuario FROM cuentas LEFT JOIN divisas ON cuentas.divisa_id = divisas.divisa_id WHERE cuenta_id = $1', [accountFrom]);
+        const accountFromCurrency = queryAccountFrom.rows[0].codigo;
+        const usuarioAccountFrom = queryAccountFrom.rows[0].usuario;
 
         // Obtener la moneda de la cuenta de destino desde la base de datos
-        const queryAccountTo = await pool.query('SELECT divisas.codigo FROM cuentas LEFT JOIN divisas ON cuentas.divisa_id = divisas.divisa_id WHERE cuenta_id = $1', [accountTo]);
-        const accountToCurrency = queryAccountTo.rows[0].divisa_id;
+        const queryAccountTo = await pool.query('SELECT divisas.codigo as codigo, cuentas.usuario_id as usuario FROM cuentas LEFT JOIN divisas ON cuentas.divisa_id = divisas.divisa_id WHERE cuenta_id = $1', [accountTo]);
+        const accountToCurrency = queryAccountTo.rows[0].codigo;
+        const usuarioAccountTo = queryAccountTo.rows[0].usuario;
 
         // Calcular monto y conversión de divisas si es necesario
         let convertedAmount = amount; // Por defecto, sin conversión
+        console.log(usuarioAccountFrom);
+        console.log(usuarioAccountTo);
 
         if (accountFromCurrency !== accountToCurrency) {
             // Obtén las tasas de cambio desde la API (usando la moneda de la cuenta de origen)
             const exchangeRates = await getExchangeRates(accountFromCurrency, accountToCurrency, amount);
             console.log(exchangeRates);
             finalAmount = exchangeRates;
+        }else{
+            finalAmount = convertedAmount
         }
 
         // Calcular comisión y monto final
         // Si la cuenta de origen es diferente seria un tercero y aplica la comision 
-        const isThirdPartyTransfer = accountTo !== accountFrom;
+        const isThirdPartyTransfer = usuarioAccountTo != usuarioAccountFrom;
 
         if (isThirdPartyTransfer) {
             const commission = amount * 0.01;
-            convertedAmount -= commission;
+            console.log(commission, "comision");
 
             // Aplicar comisión a la cuenta origen
             await pool.query(
