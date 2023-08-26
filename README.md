@@ -45,6 +45,15 @@ Bienvenido al repositorio del proyecto de Sistema de Transferencias Bancarias. E
 
 ## Postman test and Postgres DB
 ![Captura de Pantalla 2023-08-26 a la(s) 11 45 25 a m](https://github.com/laurasgm/banco_api/assets/32622393/3d062a1e-3d48-4a55-bf21-480827cf85fc)
-![Captura de Pantalla 2023-08-26 a la(s) 11 45 34 a m](https://github.com/laurasgm/banco_api/assets/32622393/21b93e4f-349c-4f72-b879-c523259519eb)
-<img width="1338" alt="Captura de Pantalla 2023-08-26 a la(s) 11 46 36 a m" src="https://github.com/laurasgm/banco_api/assets/32622393/477c3852-9556-4ec2-aaf8-dbd4a1cb68ad">
+
+## prueba con cuentas iniciales de 2000 y 500 en su valor, tomando comision y convirtiendo a moneda
+<img width="376" alt="Captura de Pantalla 2023-08-26 a la(s) 1 30 01 p m" src="https://github.com/laurasgm/banco_api/assets/32622393/71a44178-b71b-442c-9715-1e43f08e134d">
+
+![Captura de Pantalla 2023-08-26 a la(s) 1 30 13 p m](https://github.com/laurasgm/banco_api/assets/32622393/4976507d-719c-47e7-a4a9-b3245fc98601)
+
+![Captura de Pantalla 2023-08-26 a la(s) 1 30 19 p m](https://github.com/laurasgm/banco_api/assets/32622393/001d4491-d323-4366-8ed9-3e6099207334)
+
+<img width="639" alt="Captura de Pantalla 2023-08-26 a la(s) 1 29 47 p m" src="https://github.com/laurasgm/banco_api/assets/32622393/55976c7e-66a2-43a6-a65d-eb0203411d48">
+
+## DB evidencia
 <img width="1176" alt="Captura de Pantalla 2023-08-26 a la(s) 12 02 05 p m" src="https://github.com/laurasgm/banco_api/assets/32622393/b039d1b9-25e5-46e3-b11f-3f2ace715c24">
