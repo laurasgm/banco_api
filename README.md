@@ -48,8 +48,11 @@ Bienvenido al repositorio del proyecto de Sistema de Transferencias Bancarias. E
 
 ## prueba con cuentas iniciales de 2000 y 500 en su valor, tomando comision y convirtiendo a moneda
 <img width="376" alt="Captura de Pantalla 2023-08-26 a la(s) 1 30 01 p m" src="https://github.com/laurasgm/banco_api/assets/32622393/71a44178-b71b-442c-9715-1e43f08e134d">
+
 ![Captura de Pantalla 2023-08-26 a la(s) 1 30 13 p m](https://github.com/laurasgm/banco_api/assets/32622393/4976507d-719c-47e7-a4a9-b3245fc98601)
+
 ![Captura de Pantalla 2023-08-26 a la(s) 1 30 19 p m](https://github.com/laurasgm/banco_api/assets/32622393/001d4491-d323-4366-8ed9-3e6099207334)
+
 <img width="639" alt="Captura de Pantalla 2023-08-26 a la(s) 1 29 47 p m" src="https://github.com/laurasgm/banco_api/assets/32622393/55976c7e-66a2-43a6-a65d-eb0203411d48">
 
 ## DB evidencia
