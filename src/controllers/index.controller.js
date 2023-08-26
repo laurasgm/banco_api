@@ -90,17 +90,16 @@ const crearTransfer = async (req, res) => {
             // Obtén las tasas de cambio desde la API (usando la moneda de la cuenta de origen)
             const exchangeRates = await getExchangeRates(accountFromCurrency, accountToCurrency, amount);
             console.log(exchangeRates);
-            convertedAmount = exchangeRates;
+            finalAmount = exchangeRates;
         }
 
         // Calcular comisión y monto final
         // Si la cuenta de origen es diferente seria un tercero y aplica la comision 
         const isThirdPartyTransfer = accountTo !== accountFrom;
-        let finalAmount = convertedAmount;
 
         if (isThirdPartyTransfer) {
-            const commission = convertedAmount * 0.01;
-            finalAmount -= commission;
+            const commission = amount * 0.01;
+            convertedAmount -= commission;
 
             // Aplicar comisión a la cuenta origen
             await pool.query(
